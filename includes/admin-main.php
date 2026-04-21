@@ -17,6 +17,8 @@ class BSP_V2_Admin {
         add_action('wp_ajax_bsp_v2_validate_football_api', [__CLASS__, 'ajax_validate_football_api']);
         add_action('wp_ajax_bsp_v2_validate_openai_api', [__CLASS__, 'ajax_validate_openai_api']);
         add_action('wp_ajax_bsp_v2_change_theme', [__CLASS__, 'ajax_change_theme']);
+        BSP_V2_Search_Params::init();
+        BSP_V2_Debug::init();
     }
     
     public static function enqueue_assets($hook) {
@@ -647,6 +649,9 @@ class BSP_V2_Admin {
                 });
             })(jQuery);
             </script>
+        </div>
+        <?php
+    }
     
     public static function render_api_section() {
         echo '<p>Configure your API keys below</p>';
