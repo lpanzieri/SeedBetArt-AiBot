@@ -179,11 +179,7 @@ class BSP_V2_Shortcodes {
      */
     private static function render_error($title, $message) {
         return sprintf(
-            '<div class="bsp-v2-widget" style="border-left: 4px solid #f44336; background: #fff5f5;">
-                <p style="margin: 0; color: #c62828;">
-                    <strong>⚠️ %s Error:</strong> %s
-                </p>
-            </div>',
+            '<div class="bsp-v2-widget"><p class="bsp-v2-alert bsp-v2-alert-error"><strong>⚠️ %s Error:</strong> %s</p></div>',
             esc_html($title),
             esc_html($message)
         );
@@ -197,7 +193,7 @@ class BSP_V2_Shortcodes {
             '<div class="bsp-v2-widget">
                 <div class="bsp-v2-empty-state">
                     <p>📭 No %s currently available</p>
-                    <p style="font-size: 0.9rem; color: #999;">Check back later for updated recommendations</p>
+                    <p class="bsp-v2-text-muted">Check back later for updated recommendations</p>
                 </div>
             </div>',
             esc_html(strtolower($title))

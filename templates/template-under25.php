@@ -55,7 +55,7 @@ if (!defined('ABSPATH')) exit;
                             <?php echo bsp_v2_format_confidence($bet['confidence'] ?? 0); ?>
                         </td>
                         <td>
-                            <span style="color: #ff9800; font-weight: 600;">
+                            <span class="bsp-v2-xg-value">
                                 <?php echo esc_html(number_format($bet['estimated_xg'] ?? 0, 2)); ?> ⚽
                             </span>
                         </td>
@@ -110,7 +110,7 @@ if (!defined('ABSPATH')) exit;
                         </div>
                         <div class="bsp-v2-card-stat">
                             <label>xG</label>
-                            <div class="bsp-v2-card-value-large" style="color: #ff9800;"><?php echo number_format($bet['estimated_xg'] ?? 0, 2); ?></div>
+                            <div class="bsp-v2-card-value-large bsp-v2-xg-value"><?php echo number_format($bet['estimated_xg'] ?? 0, 2); ?></div>
                         </div>
                         <div class="bsp-v2-card-stat">
                             <label>Confidence</label>

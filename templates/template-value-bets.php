@@ -110,7 +110,7 @@ if (!defined('ABSPATH')) exit;
                         </div>
                         <div class="bsp-v2-card-stat">
                             <label>EV</label>
-                            <div class="bsp-v2-card-value-large" style="color: #4caf50;"><?php echo number_format($bet['ev'] ?? 0, 1); ?>%</div>
+                            <div class="bsp-v2-card-value-large bsp-v2-card-ev-value"><?php echo number_format($bet['ev'] ?? 0, 1); ?>%</div>
                         </div>
                         <div class="bsp-v2-card-stat">
                             <label>Confidence</label>

@@ -28,13 +28,7 @@ class BSP_V2_Widget_Value_Bets extends WP_Widget {
                     echo esc_html(apply_filters('widget_title', $instance['title']));
                     echo wp_kses_post($args['after_title']);
                 }
-                echo '<p style="color: #d32f2f;"><strong>Configuration Required:</strong> Please validate Odds-API and Football-API in plugin settings.</p>';
-                echo wp_kses_post($args['after_widget']);
-                return;
-            }
-            
-            // Widget wrapper
-            echo wp_kses_post($args['before_widget']);
+            echo '<p class="bsp-v2-widget-error"><strong>Configuration Required:</strong> Please validate Odds-API and Football-API in plugin settings.</p>';
             
             // Title
             if (!empty($instance['title'])) {
@@ -54,9 +48,9 @@ class BSP_V2_Widget_Value_Bets extends WP_Widget {
             $bets = $logic->get_value_bets('football', $limit);
             
             if (is_wp_error($bets)) {
-                echo '<p style="color: #d32f2f;">' . esc_html($bets->get_error_message()) . '</p>';
+                echo '<p class="bsp-v2-widget-error">' . esc_html($bets->get_error_message()) . '</p>';
             } elseif (empty($bets)) {
-                echo '<p style="color: #999;">No value bets available at the moment.</p>';
+                echo '<p class="bsp-v2-widget-muted">No value bets available at the moment.</p>';
             } else {
                 $this->render_bets($bets, $display_style, $show_confidence, $show_ev);
             }
@@ -65,7 +59,7 @@ class BSP_V2_Widget_Value_Bets extends WP_Widget {
             
         } catch (Throwable $e) {
             bsp_v2_log_error('Value Bets Widget Error: ' . $e->getMessage());
-            echo '<p style="color: #d32f2f;">Widget error occurred</p>';
+            echo '<p class="bsp-v2-widget-error">Widget error occurred</p>';
         }
     }
     
@@ -150,7 +144,7 @@ class BSP_V2_Widget_Value_Bets extends WP_Widget {
         ?>
         <li class="bsp-v2-widget-item">
             <strong><?php echo esc_html($bet['home']); ?></strong> vs <strong><?php echo esc_html($bet['away']); ?></strong><br>
-            <small style="color: #666;">
+            <small class="bsp-v2-widget-meta">
                 Odds: <?php echo esc_html(number_format($bet['odds'], 2)); ?>
                 <?php if ($show_ev && isset($bet['ev'])): ?>
                     | EV: <?php echo esc_html(number_format($bet['ev'], 2)); ?>%
@@ -192,7 +186,7 @@ class BSP_V2_Widget_Value_Bets extends WP_Widget {
     private function render_bet_compact($bet, $show_confidence, $show_ev) {
         ?>
         <li class="bsp-v2-widget-compact">
-            <span class="bsp-v2-match"><?php echo esc_html($bet['home'][0] . ' vs ' . $bet['away'][0]); ?></span>
+            <span class="bsp-v2-match"><?php echo esc_html($bet['home'] . ' vs ' . $bet['away']); ?></span>
             <span class="bsp-v2-odds"><?php echo esc_html(number_format($bet['odds'], 2)); ?>x</span>
         </li>
         <?php
@@ -221,41 +215,35 @@ class BSP_V2_Widget_LTD extends WP_Widget {
                     echo esc_html(apply_filters('widget_title', $instance['title']));
                     echo wp_kses_post($args['after_title']);
                 }
-                echo '<p style="color: #d32f2f;"><strong>Configuration Required:</strong> Please validate Odds-API and Football-API in plugin settings.</p>';
-                echo wp_kses_post($args['after_widget']);
-                return;
-            }
-            
-            echo wp_kses_post($args['before_widget']);
-            
-            if (!empty($instance['title'])) {
-                echo wp_kses_post($args['before_title']);
-                echo esc_html(apply_filters('widget_title', $instance['title']));
-                echo wp_kses_post($args['after_title']);
-            }
-            
-            $limit = !empty($instance['limit']) ? (int)$instance['limit'] : 5;
-            $show_probability = !empty($instance['show_probability']) ? 1 : 0;
-            
-            $logic = new BSP_V2_Logic();
-            $suggestions = $logic->get_ltd_suggestions('football', $limit);
-            
-            if (is_wp_error($suggestions)) {
-                echo '<p style="color: #d32f2f;">' . esc_html($suggestions->get_error_message()) . '</p>';
-            } elseif (empty($suggestions)) {
-                echo '<p style="color: #999;">No LTD suggestions available.</p>';
-            } else {
-                echo '<ul class="bsp-v2-ltd-widget-list">';
-                foreach ($suggestions as $item) {
-                    echo '<li class="bsp-v2-ltd-item">';
-                    echo esc_html($item['home']) . ' vs ' . esc_html($item['away']) . '<br>';
-                    echo '<small style="color: #666;">';
-                    echo 'Draw Odds: ' . esc_html(number_format($item['draw_odds'], 2)) . 'x';
-                    if ($show_probability && isset($item['draw_probability'])) {
-                        echo ' | Prob: ' . esc_html(number_format($item['draw_probability'], 1)) . '%';
-                    }
-                    echo '</small>';
-                    echo '</li>';
+            echo '<p class="bsp-v2-widget-error"><strong>Configuration Required:</strong> Please validate Odds-API and Football-API in plugin settings.</p>';
+            echo wp_kses_post($args['after_widget']);
+            return;
+        }
+        
+        echo wp_kses_post($args['before_widget']);
+        
+        if (!empty($instance['title'])) {
+            echo wp_kses_post($args['before_title']);
+            echo esc_html(apply_filters('widget_title', $instance['title']));
+            echo wp_kses_post($args['after_title']);
+        }
+        
+        $limit = !empty($instance['limit']) ? (int)$instance['limit'] : 5;
+        $show_probability = !empty($instance['show_probability']) ? 1 : 0;
+        
+        $logic = new BSP_V2_Logic();
+        $suggestions = $logic->get_ltd_suggestions('football', $limit);
+        
+        if (is_wp_error($suggestions)) {
+            echo '<p class="bsp-v2-widget-error">' . esc_html($suggestions->get_error_message()) . '</p>';
+        } elseif (empty($suggestions)) {
+            echo '<p class="bsp-v2-widget-muted">No LTD suggestions available.</p>';
+        } else {
+            echo '<ul class="bsp-v2-ltd-widget-list">';
+            foreach ($suggestions as $item) {
+                echo '<li class="bsp-v2-ltd-item">';
+                echo esc_html($item['home']) . ' vs ' . esc_html($item['away']) . '<br>';
+                echo '<small class="bsp-v2-widget-meta">';
                 }
                 echo '</ul>';
             }
@@ -264,7 +252,7 @@ class BSP_V2_Widget_LTD extends WP_Widget {
             
         } catch (Throwable $e) {
             bsp_v2_log_error('LTD Widget Error: ' . $e->getMessage());
-            echo '<p style="color: #d32f2f;">Widget error occurred</p>';
+            echo '<p class="bsp-v2-widget-error">Widget error occurred</p>';
         }
     }
     
@@ -326,7 +314,7 @@ class BSP_V2_Widget_Under25 extends WP_Widget {
                     echo esc_html(apply_filters('widget_title', $instance['title']));
                     echo wp_kses_post($args['after_title']);
                 }
-                echo '<p style="color: #d32f2f;"><strong>Configuration Required:</strong> Please validate Odds-API and Football-API in plugin settings.</p>';
+                echo '<p class="bsp-v2-widget-error"><strong>Configuration Required:</strong> Please validate Odds-API and Football-API in plugin settings.</p>';
                 echo wp_kses_post($args['after_widget']);
                 return;
             }
@@ -347,15 +335,15 @@ class BSP_V2_Widget_Under25 extends WP_Widget {
             $suggestions = $logic->get_under_25_suggestions('football', $limit);
             
             if (is_wp_error($suggestions)) {
-                echo '<p style="color: #d32f2f;">' . esc_html($suggestions->get_error_message()) . '</p>';
+                echo '<p class="bsp-v2-widget-error">' . esc_html($suggestions->get_error_message()) . '</p>';
             } elseif (empty($suggestions)) {
-                echo '<p style="color: #999;">No Under 2.5 suggestions available.</p>';
+                echo '<p class="bsp-v2-widget-muted">No Under 2.5 suggestions available.</p>';
             } else {
                 echo '<ul class="bsp-v2-under25-widget-list">';
                 foreach ($suggestions as $item) {
                     echo '<li class="bsp-v2-under25-item">';
                     echo esc_html($item['home']) . ' vs ' . esc_html($item['away']) . '<br>';
-                    echo '<small style="color: #666;">';
+                    echo '<small class="bsp-v2-widget-meta">';
                     echo 'Odds: ' . esc_html(number_format($item['odds'], 2)) . 'x';
                     if ($show_xg && isset($item['estimated_xg'])) {
                         echo ' | xG: ' . esc_html(number_format($item['estimated_xg'], 2));
@@ -373,7 +361,7 @@ class BSP_V2_Widget_Under25 extends WP_Widget {
             
         } catch (Throwable $e) {
             bsp_v2_log_error('Under 2.5 Widget Error: ' . $e->getMessage());
-            echo '<p style="color: #d32f2f;">Widget error occurred</p>';
+            echo '<p class="bsp-v2-widget-error">Widget error occurred</p>';
         }
     }
     

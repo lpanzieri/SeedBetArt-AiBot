@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) exit;
     <h3>🤖 AI Value Analysis</h3>
     
     <?php if (!bsp_v2_ai_enabled()): ?>
-        <p style="color: #ff9800; padding: 15px; background: #fff3e0; border-radius: 6px;">
+        <p class="bsp-v2-alert bsp-v2-alert-warning">
             <strong>⚠️ AI features require OpenAI API key configuration</strong>
         </p>
     <?php elseif (empty($analysis)): ?>

@@ -100,7 +100,7 @@ if (!defined('ABSPATH')) exit;
                         </div>
                         <div class="bsp-v2-card-stat">
                             <label>Draw Prob</label>
-                            <div class="bsp-v2-card-value-large" style="color: #764ba2;"><?php echo is_numeric($bet['draw_odds']) ? number_format((1 / $bet['draw_odds']) * 100, 1) : 'N/A'; ?>%</div>
+                            <div class="bsp-v2-card-value-large bsp-v2-card-secondary-value"><?php echo is_numeric($bet['draw_odds']) ? number_format((1 / $bet['draw_odds']) * 100, 1) : 'N/A'; ?>%</div>
                         </div>
                         <div class="bsp-v2-card-stat">
                             <label>Confidence</label>

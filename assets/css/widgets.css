@@ -261,3 +261,18 @@
         border-bottom-color: #45475a;
     }
 }
+
+/* Widget status messages */
+.bsp-v2-widget-error {
+    color: #d32f2f;
+}
+
+.bsp-v2-widget-muted {
+    color: #999;
+    font-size: 0.9rem;
+}
+
+.bsp-v2-widget-meta {
+    color: #666;
+    font-size: 0.85em;
+}

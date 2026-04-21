@@ -26,11 +26,11 @@ class BSP_V2_ShortcodesAI {
      */
     public static function ai_analysis($atts) {
         if (!bsp_v2_is_openai_api_validated()) {
-            return '<p style="color: red;"><strong>AI features disabled:</strong> Validate the OpenAI API key in plugin settings.</p>';
+            return '<p class="bsp-v2-alert bsp-v2-alert-error"><strong>AI features disabled:</strong> Validate the OpenAI API key in plugin settings.</p>';
         }
         
         if (!bsp_v2_ai_enabled()) {
-            return '<p style="color: orange;">AI features not available. Please configure OpenAI API key.</p>';
+            return '<p class="bsp-v2-alert bsp-v2-alert-warning">AI features not available. Please configure OpenAI API key.</p>';
         }
         
         try {
@@ -46,17 +46,17 @@ class BSP_V2_ShortcodesAI {
             $analysis = $openai->analyze_match($match_info);
             
             if (is_wp_error($analysis)) {
-                return '<p style="color: red;">Analysis failed: ' . esc_html($analysis->get_error_message()) . '</p>';
+                return '<p class="bsp-v2-alert bsp-v2-alert-error">Analysis failed: ' . esc_html($analysis->get_error_message()) . '</p>';
             }
             
-            return '<div class="bsp-v2-analysis" style="border: 1px solid #ddd; padding: 15px; border-radius: 5px;">' .
-                   '<h4>' . esc_html($match_info['home']) . ' vs ' . esc_html($match_info['away']) . '</h4>' .
-                   '<p>' . wp_kses_post($analysis) . '</p>' .
+            return '<div class="bsp-v2-ai-widget">' .
+                   '<h3>' . esc_html($match_info['home']) . ' vs ' . esc_html($match_info['away']) . '</h3>' .
+                   '<div class="bsp-v2-analysis-item"><p>' . wp_kses_post($analysis) . '</p></div>' .
                    '</div>';
             
         } catch (Throwable $e) {
             bsp_v2_log_error('AI analysis error: ' . $e->getMessage());
-            return '<p style="color: red;">Analysis error occurred</p>';
+            return '<p class="bsp-v2-alert bsp-v2-alert-error">Analysis error occurred</p>';
         }
     }
     
@@ -66,11 +66,11 @@ class BSP_V2_ShortcodesAI {
      */
     public static function ai_explain($atts) {
         if (!bsp_v2_is_openai_api_validated()) {
-            return '<p style="color: red;"><strong>AI features disabled:</strong> Validate the OpenAI API key in plugin settings.</p>';
+            return '<p class="bsp-v2-alert bsp-v2-alert-error"><strong>AI features disabled:</strong> Validate the OpenAI API key in plugin settings.</p>';
         }
         
         if (!bsp_v2_ai_enabled()) {
-            return '<p style="color: orange;">AI features not available</p>';
+            return '<p class="bsp-v2-alert bsp-v2-alert-warning">AI features not available</p>';
         }
         
         try {
@@ -84,14 +84,14 @@ class BSP_V2_ShortcodesAI {
             $explanation = $openai->explain_bet($match_info, $atts['type'] ?? 'value', $atts['odds'] ?? 1.5);
             
             if (is_wp_error($explanation)) {
-                return '<p style="color: red;">' . esc_html($explanation->get_error_message()) . '</p>';
+                return '<p class="bsp-v2-alert bsp-v2-alert-error">' . esc_html($explanation->get_error_message()) . '</p>';
             }
             
-            return '<div class="bsp-v2-explanation">' . wp_kses_post($explanation) . '</div>';
+            return '<div class="bsp-v2-ai-widget"><div class="bsp-v2-analysis-item">' . wp_kses_post($explanation) . '</div></div>';
             
         } catch (Throwable $e) {
             bsp_v2_log_error('Bet explanation error: ' . $e->getMessage());
-            return '<p style="color: red;">Error generating explanation</p>';
+            return '<p class="bsp-v2-alert bsp-v2-alert-error">Error generating explanation</p>';
         }
     }
 }
