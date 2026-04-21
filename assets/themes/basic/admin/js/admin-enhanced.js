@@ -130,15 +130,15 @@
                     
                     if (response.success) {
                         console.log('[BSP V2 Admin] Validation successful');
-                        // Lock input and swap to Unlink button
+                        // Lock input, disable+green the Validate button, append Unlink button
                         var $input = $('#' + inputId);
                         $input.prop('readonly', true).css({'opacity': '0.7', 'cursor': 'not-allowed'});
                         statusDiv.html('<span style="color: #4caf50; font-weight: 600;">✓ ' + apiDisplayName + '-API is validated</span>');
-                        $button.html('🔴 Unlink API')
-                               .removeClass('bsp-v2-validate-btn')
-                               .addClass('bsp-v2-unlink-btn')
-                               .prop('disabled', false)
-                               .css('opacity', '1');
+                        $button.html('✓ Validated')
+                               .addClass('validated')
+                               .prop('disabled', true)
+                               .css({'opacity': '1', 'cursor': 'not-allowed'});
+                        $button.after('<button type="button" class="bsp-v2-unlink-btn" data-api="' + api + '">🔴 Unlink API</button>');
                         BSP_V2_Admin.showNotice('✓ ' + apiDisplayName + ' API validated successfully!', 'success');
                     } else {
                         console.log('[BSP V2 Admin] Validation failed:', response.data);
@@ -224,11 +224,12 @@
                     if (response.success) {
                         $input.val('').prop('readonly', false).css({'opacity': '1', 'cursor': ''});
                         $statusDiv.html('<span style="color: gray;">⊘ Not validated yet</span>');
-                        $button.html('✓ Validate')
-                               .removeClass('bsp-v2-unlink-btn')
-                               .addClass('bsp-v2-validate-btn')
-                               .prop('disabled', false)
-                               .css({'opacity': '1', 'background': '', 'box-shadow': ''});
+                        var $validateBtn = $button.siblings('.bsp-v2-validate-btn');
+                        $validateBtn.html('✓ Validate')
+                                    .removeClass('validated')
+                                    .prop('disabled', false)
+                                    .css({'opacity': '1', 'cursor': ''});
+                        $button.remove();
                         BSP_V2_Admin.showNotice('✓ ' + apiDisplayName + ' API unlinked', 'success');
                     } else {
                         var errorMessage = response.data && response.data.message ? response.data.message : 'Unknown error';

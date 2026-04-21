@@ -442,15 +442,17 @@ class BSP_V2_Admin {
                                        <?php if ($validation_status['odds']) echo 'readonly style="cursor:not-allowed;opacity:0.7;"'; ?>>
                                 <p class="description">Get it from <a href="https://odds-api.io/" target="_blank">odds-api.io</a></p>
                             </div>
-                            <?php if ($validation_status['odds']): ?>
-                                <button type="button" class="bsp-v2-unlink-btn" data-api="odds" style="margin-top: 25px;">
-                                    🔴 Unlink API
+                            <div class="bsp-v2-api-actions" style="display: flex; gap: 8px; margin-top: 25px;">
+                                <button type="button" class="bsp-v2-validate-btn <?php echo $validation_status['odds'] ? 'validated' : ''; ?>" data-api="odds"
+                                        <?php if ($validation_status['odds']) echo 'disabled'; ?>>
+                                    ✓ <?php echo $validation_status['odds'] ? 'Validated' : 'Validate'; ?>
                                 </button>
-                            <?php else: ?>
-                                <button type="button" class="bsp-v2-validate-btn" data-api="odds" style="margin-top: 25px;">
-                                    ✓ Validate
-                                </button>
-                            <?php endif; ?>
+                                <?php if ($validation_status['odds']): ?>
+                                    <button type="button" class="bsp-v2-unlink-btn" data-api="odds">
+                                        🔴 Unlink API
+                                    </button>
+                                <?php endif; ?>
+                            </div>
                         </div>
                         <div class="bsp-v2-validation-status" id="status-odds" style="margin-top: 10px;">
                             <?php if ($validation_status['odds']): ?>
@@ -471,15 +473,17 @@ class BSP_V2_Admin {
                                        <?php if ($validation_status['football']) echo 'readonly style="cursor:not-allowed;opacity:0.7;"'; ?>>
                                 <p class="description">Get it from <a href="https://api-football.com/" target="_blank">api-football.com</a></p>
                             </div>
-                            <?php if ($validation_status['football']): ?>
-                                <button type="button" class="bsp-v2-unlink-btn" data-api="football" style="margin-top: 25px;">
-                                    🔴 Unlink API
+                            <div class="bsp-v2-api-actions" style="display: flex; gap: 8px; margin-top: 25px;">
+                                <button type="button" class="bsp-v2-validate-btn <?php echo $validation_status['football'] ? 'validated' : ''; ?>" data-api="football"
+                                        <?php if ($validation_status['football']) echo 'disabled'; ?>>
+                                    ✓ <?php echo $validation_status['football'] ? 'Validated' : 'Validate'; ?>
                                 </button>
-                            <?php else: ?>
-                                <button type="button" class="bsp-v2-validate-btn" data-api="football" style="margin-top: 25px;">
-                                    ✓ Validate
-                                </button>
-                            <?php endif; ?>
+                                <?php if ($validation_status['football']): ?>
+                                    <button type="button" class="bsp-v2-unlink-btn" data-api="football">
+                                        🔴 Unlink API
+                                    </button>
+                                <?php endif; ?>
+                            </div>
                         </div>
                         <div class="bsp-v2-validation-status" id="status-football" style="margin-top: 10px;">
                             <?php if ($validation_status['football']): ?>
@@ -500,15 +504,17 @@ class BSP_V2_Admin {
                                        <?php if ($validation_status['openai']) echo 'readonly style="cursor:not-allowed;opacity:0.7;"'; ?>>
                                 <p class="description">Required for AI analysis features. Get it from <a href="https://platform.openai.com/" target="_blank">OpenAI</a></p>
                             </div>
-                            <?php if ($validation_status['openai']): ?>
-                                <button type="button" class="bsp-v2-unlink-btn" data-api="openai" style="margin-top: 25px;">
-                                    🔴 Unlink API
+                            <div class="bsp-v2-api-actions" style="display: flex; gap: 8px; margin-top: 25px;">
+                                <button type="button" class="bsp-v2-validate-btn <?php echo $validation_status['openai'] ? 'validated' : ''; ?>" data-api="openai"
+                                        <?php if ($validation_status['openai']) echo 'disabled'; ?>>
+                                    ✓ <?php echo $validation_status['openai'] ? 'Validated' : 'Validate'; ?>
                                 </button>
-                            <?php else: ?>
-                                <button type="button" class="bsp-v2-validate-btn" data-api="openai" style="margin-top: 25px;">
-                                    ✓ Validate
-                                </button>
-                            <?php endif; ?>
+                                <?php if ($validation_status['openai']): ?>
+                                    <button type="button" class="bsp-v2-unlink-btn" data-api="openai">
+                                        🔴 Unlink API
+                                    </button>
+                                <?php endif; ?>
+                            </div>
                         </div>
                         <div class="bsp-v2-validation-status" id="status-openai" style="margin-top: 10px;">
                             <?php if ($validation_status['openai']): ?>
