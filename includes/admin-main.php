@@ -73,7 +73,7 @@ class BSP_V2_Admin {
         add_submenu_page(
             'bsp-v2-dashboard',
             'Dashboard',
-            'Dashboard',
+            '📊 Dashboard',
             'manage_options',
             'bsp-v2-dashboard',
             [__CLASS__, 'render_dashboard']
@@ -82,7 +82,7 @@ class BSP_V2_Admin {
         add_submenu_page(
             'bsp-v2-dashboard',
             'Settings',
-            'Settings',
+            '⚙️ Settings',
             'manage_options',
             'bsp-v2-settings',
             [__CLASS__, 'render_settings']
@@ -91,7 +91,7 @@ class BSP_V2_Admin {
         add_submenu_page(
             'bsp-v2-dashboard',
             'Activity Log',
-            'Activity Log',
+            '📋 Activity Log',
             'manage_options',
             'bsp-v2-activity',
             [__CLASS__, 'render_activity']
