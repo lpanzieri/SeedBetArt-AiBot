@@ -28,25 +28,27 @@ class BSP_V2_Widget_Value_Bets extends WP_Widget {
                     echo esc_html(apply_filters('widget_title', $instance['title']));
                     echo wp_kses_post($args['after_title']);
                 }
-            echo '<p class="bsp-v2-widget-error"><strong>Configuration Required:</strong> Please validate Odds-API and Football-API in plugin settings.</p>';
-            
-            // Title
+                echo '<p class="bsp-v2-widget-error"><strong>Configuration Required:</strong> Please validate Odds-API and Football-API in plugin settings.</p>';
+                echo wp_kses_post($args['after_widget']);
+                return;
+            }
+
+            echo wp_kses_post($args['before_widget']);
+
             if (!empty($instance['title'])) {
                 echo wp_kses_post($args['before_title']);
                 echo esc_html(apply_filters('widget_title', $instance['title']));
                 echo wp_kses_post($args['after_title']);
             }
-            
-            // Get configuration
+
             $limit = !empty($instance['limit']) ? (int)$instance['limit'] : 5;
             $show_confidence = !empty($instance['show_confidence']) ? 1 : 0;
             $show_ev = !empty($instance['show_ev']) ? 1 : 0;
             $display_style = !empty($instance['display_style']) ? $instance['display_style'] : 'list';
-            
-            // Fetch bets
+
             $logic = new BSP_V2_Logic();
             $bets = $logic->get_value_bets('football', $limit);
-            
+
             if (is_wp_error($bets)) {
                 echo '<p class="bsp-v2-widget-error">' . esc_html($bets->get_error_message()) . '</p>';
             } elseif (empty($bets)) {
@@ -54,9 +56,9 @@ class BSP_V2_Widget_Value_Bets extends WP_Widget {
             } else {
                 $this->render_bets($bets, $display_style, $show_confidence, $show_ev);
             }
-            
+
             echo wp_kses_post($args['after_widget']);
-            
+
         } catch (Throwable $e) {
             bsp_v2_log_error('Value Bets Widget Error: ' . $e->getMessage());
             echo '<p class="bsp-v2-widget-error">Widget error occurred</p>';
@@ -244,9 +246,13 @@ class BSP_V2_Widget_LTD extends WP_Widget {
                 echo '<li class="bsp-v2-ltd-item">';
                 echo esc_html($item['home']) . ' vs ' . esc_html($item['away']) . '<br>';
                 echo '<small class="bsp-v2-widget-meta">';
+                if ($show_probability && isset($item['draw_probability'])) {
+                    echo 'Draw Prob: ' . esc_html(number_format($item['draw_probability'], 1)) . '%';
                 }
-                echo '</ul>';
+                echo '</small>';
+                echo '</li>';
             }
+            echo '</ul>';
             
             echo wp_kses_post($args['after_widget']);
             
