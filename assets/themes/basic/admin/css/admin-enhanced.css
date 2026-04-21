@@ -422,6 +422,34 @@
     box-shadow: 0 4px 12px rgba(244, 67, 54, 0.4);
 }
 
+/* Unlink API button */
+.bsp-v2-unlink-btn {
+    background: linear-gradient(135deg, #e53935 0%, #c62828 100%);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(229, 57, 53, 0.3);
+    min-width: 120px;
+    white-space: nowrap;
+}
+
+.bsp-v2-unlink-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #c62828 0%, #b71c1c 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(229, 57, 53, 0.4);
+}
+
+.bsp-v2-unlink-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
 .bsp-v2-validation-status {
     font-size: 0.9rem;
     font-weight: 500;

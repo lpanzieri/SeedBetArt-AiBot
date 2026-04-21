@@ -17,6 +17,7 @@ class BSP_V2_Admin {
         add_action('wp_ajax_bsp_v2_validate_football_api', [__CLASS__, 'ajax_validate_football_api']);
         add_action('wp_ajax_bsp_v2_validate_openai_api', [__CLASS__, 'ajax_validate_openai_api']);
         add_action('wp_ajax_bsp_v2_change_theme', [__CLASS__, 'ajax_change_theme']);
+        add_action('wp_ajax_bsp_v2_unlink_api', [__CLASS__, 'ajax_unlink_api']);
         BSP_V2_Search_Params::init();
         BSP_V2_Debug::init();
     }
@@ -437,16 +438,23 @@ class BSP_V2_Admin {
                                 <label for="bsp_v2_api_key_odds">Odds-API Key</label>
                                 <input type="password" id="bsp_v2_api_key_odds" name="bsp_v2_api_key_odds" 
                                        value="<?php echo esc_attr(bsp_v2_option('api_key_odds')); ?>" 
-                                       placeholder="sk_live_..." class="bsp-v2-input">
+                                       placeholder="sk_live_..." class="bsp-v2-input"
+                                       <?php if ($validation_status['odds']) echo 'readonly style="cursor:not-allowed;opacity:0.7;"'; ?>>
                                 <p class="description">Get it from <a href="https://odds-api.io/" target="_blank">odds-api.io</a></p>
                             </div>
-                            <button type="button" class="bsp-v2-validate-btn" data-api="odds" style="margin-top: 25px;">
-                                ✓ Validate
-                            </button>
+                            <?php if ($validation_status['odds']): ?>
+                                <button type="button" class="bsp-v2-unlink-btn" data-api="odds" style="margin-top: 25px;">
+                                    🔴 Unlink API
+                                </button>
+                            <?php else: ?>
+                                <button type="button" class="bsp-v2-validate-btn" data-api="odds" style="margin-top: 25px;">
+                                    ✓ Validate
+                                </button>
+                            <?php endif; ?>
                         </div>
                         <div class="bsp-v2-validation-status" id="status-odds" style="margin-top: 10px;">
                             <?php if ($validation_status['odds']): ?>
-                                <span style="color: green;">✓ Odds-API is validated</span>
+                                <span style="color: #4caf50; font-weight: 600;">✓ Odds-API is validated</span>
                             <?php else: ?>
                                 <span style="color: gray;">⊘ Not validated yet</span>
                             <?php endif; ?>
@@ -459,16 +467,23 @@ class BSP_V2_Admin {
                                 <label for="bsp_v2_api_key_football">Football-API Key</label>
                                 <input type="password" id="bsp_v2_api_key_football" name="bsp_v2_api_key_football" 
                                        value="<?php echo esc_attr(bsp_v2_option('api_key_football')); ?>" 
-                                       placeholder="your-api-key..." class="bsp-v2-input">
+                                       placeholder="your-api-key..." class="bsp-v2-input"
+                                       <?php if ($validation_status['football']) echo 'readonly style="cursor:not-allowed;opacity:0.7;"'; ?>>
                                 <p class="description">Get it from <a href="https://api-football.com/" target="_blank">api-football.com</a></p>
                             </div>
-                            <button type="button" class="bsp-v2-validate-btn" data-api="football" style="margin-top: 25px;">
-                                ✓ Validate
-                            </button>
+                            <?php if ($validation_status['football']): ?>
+                                <button type="button" class="bsp-v2-unlink-btn" data-api="football" style="margin-top: 25px;">
+                                    🔴 Unlink API
+                                </button>
+                            <?php else: ?>
+                                <button type="button" class="bsp-v2-validate-btn" data-api="football" style="margin-top: 25px;">
+                                    ✓ Validate
+                                </button>
+                            <?php endif; ?>
                         </div>
                         <div class="bsp-v2-validation-status" id="status-football" style="margin-top: 10px;">
                             <?php if ($validation_status['football']): ?>
-                                <span style="color: green;">✓ Football-API is validated</span>
+                                <span style="color: #4caf50; font-weight: 600;">✓ Football-API is validated</span>
                             <?php else: ?>
                                 <span style="color: gray;">⊘ Not validated yet</span>
                             <?php endif; ?>
@@ -481,16 +496,23 @@ class BSP_V2_Admin {
                                 <label for="bsp_v2_api_key_openai">OpenAI API Key</label>
                                 <input type="password" id="bsp_v2_api_key_openai" name="bsp_v2_api_key_openai" 
                                        value="<?php echo esc_attr(bsp_v2_option('api_key_openai')); ?>" 
-                                       placeholder="sk-..." class="bsp-v2-input">
+                                       placeholder="sk-..." class="bsp-v2-input"
+                                       <?php if ($validation_status['openai']) echo 'readonly style="cursor:not-allowed;opacity:0.7;"'; ?>>
                                 <p class="description">Required for AI analysis features. Get it from <a href="https://platform.openai.com/" target="_blank">OpenAI</a></p>
                             </div>
-                            <button type="button" class="bsp-v2-validate-btn" data-api="openai" style="margin-top: 25px;">
-                                ✓ Validate
-                            </button>
+                            <?php if ($validation_status['openai']): ?>
+                                <button type="button" class="bsp-v2-unlink-btn" data-api="openai" style="margin-top: 25px;">
+                                    🔴 Unlink API
+                                </button>
+                            <?php else: ?>
+                                <button type="button" class="bsp-v2-validate-btn" data-api="openai" style="margin-top: 25px;">
+                                    ✓ Validate
+                                </button>
+                            <?php endif; ?>
                         </div>
                         <div class="bsp-v2-validation-status" id="status-openai" style="margin-top: 10px;">
                             <?php if ($validation_status['openai']): ?>
-                                <span style="color: green;">✓ OpenAI API is validated</span>
+                                <span style="color: #4caf50; font-weight: 600;">✓ OpenAI API is validated</span>
                             <?php else: ?>
                                 <span style="color: gray;">⊘ Not validated yet</span>
                             <?php endif; ?>
@@ -1286,5 +1308,44 @@ class BSP_V2_Admin {
             'theme' => $theme,
             'redirect_url' => $redirect_url,
         ]);
+    }
+
+    /**
+     * AJAX handler for unlinking (removing) an API key and its validation flag
+     */
+    public static function ajax_unlink_api() {
+        while (ob_get_level()) ob_end_clean();
+        ob_start();
+
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'bsp_v2_admin_nonce')) {
+            ob_end_clean();
+            wp_send_json_error(['message' => 'Security check failed']);
+        }
+
+        if (!current_user_can('manage_options')) {
+            ob_end_clean();
+            wp_send_json_error(['message' => 'Unauthorized']);
+        }
+
+        $api = sanitize_key(wp_unslash($_POST['api'] ?? ''));
+
+        $map = [
+            'odds'     => ['bsp_v2_api_validated_odds',     'bsp_v2_api_key_odds'],
+            'football' => ['bsp_v2_api_validated_football', 'bsp_v2_api_key_football'],
+            'openai'   => ['bsp_v2_api_validated_openai',   'bsp_v2_api_key_openai'],
+        ];
+
+        if (!isset($map[$api])) {
+            ob_end_clean();
+            wp_send_json_error(['message' => 'Invalid API identifier']);
+        }
+
+        delete_option($map[$api][0]);
+        delete_option($map[$api][1]);
+
+        bsp_v2_log('API unlinked', ['api' => $api, 'user_id' => get_current_user_id()]);
+
+        ob_end_clean();
+        wp_send_json_success(['message' => ucfirst($api) . ' API unlinked successfully']);
     }
 }

@@ -55,6 +55,14 @@
                 console.log('[BSP V2 Admin] Refresh data clicked');
                 BSP_V2_Admin.refreshData();
             });
+
+            // Unlink API button
+            $(document).on('click', '.bsp-v2-unlink-btn', function(e) {
+                console.log('[BSP V2 Admin] Unlink button clicked');
+                e.preventDefault();
+                var api = $(this).data('api');
+                BSP_V2_Admin.unlinkApi($(this), api);
+            });
             
             console.log('[BSP V2 Admin] Event binding complete');
         },
@@ -122,18 +130,16 @@
                     
                     if (response.success) {
                         console.log('[BSP V2 Admin] Validation successful');
-                        // Success - turn green
+                        // Lock input and swap to Unlink button
+                        var $input = $('#' + inputId);
+                        $input.prop('readonly', true).css({'opacity': '0.7', 'cursor': 'not-allowed'});
                         statusDiv.html('<span style="color: #4caf50; font-weight: 600;">✓ ' + apiDisplayName + '-API is validated</span>');
-                        $button.css({
-                            'background': 'linear-gradient(135deg, #4caf50 0%, #45a049 100%)',
-                            'box-shadow': '0 4px 12px rgba(76, 175, 80, 0.3)'
-                        }).html('✓ Validated').attr('data-validated', 'true').prop('disabled', false).css('opacity', '1');
+                        $button.html('🔴 Unlink API')
+                               .removeClass('bsp-v2-validate-btn')
+                               .addClass('bsp-v2-unlink-btn')
+                               .prop('disabled', false)
+                               .css('opacity', '1');
                         BSP_V2_Admin.showNotice('✓ ' + apiDisplayName + ' API validated successfully!', 'success');
-                        
-                        // Auto-reset success state after 3 seconds
-                        setTimeout(function() {
-                            $button.text(originalText).css('background', originalBgColor).removeAttr('data-validated');
-                        }, 3000);
                     } else {
                         console.log('[BSP V2 Admin] Validation failed:', response.data);
                         // Failure - turn red and KEEP IT RED
@@ -183,6 +189,56 @@
                         'box-shadow': '0 4px 12px rgba(244, 67, 54, 0.4)'
                     }).html('✗ Error').prop('disabled', false).css('opacity', '1');
                     BSP_V2_Admin.showNotice('✗ ' + errorMsg, 'error');
+                }
+            });
+        },
+
+        unlinkApi: function($button, api) {
+            console.log('[BSP V2 Admin] unlinkApi called with API:', api);
+
+            var apiDisplayName = api === 'openai' ? 'OpenAI' : api.charAt(0).toUpperCase() + api.slice(1);
+            if (!confirm('Unlink the ' + apiDisplayName + ' API? The stored key will be removed.')) {
+                return;
+            }
+
+            var inputMap = {
+                'odds': 'bsp_v2_api_key_odds',
+                'football': 'bsp_v2_api_key_football',
+                'openai': 'bsp_v2_api_key_openai'
+            };
+
+            $button.prop('disabled', true).html('🔄 Unlinking...').css('opacity', '0.7');
+
+            $.ajax({
+                type: 'POST',
+                url: bspV2Data.ajaxurl,
+                data: {
+                    action: 'bsp_v2_unlink_api',
+                    nonce: bspV2Data.nonce,
+                    api: api
+                },
+                success: function(response) {
+                    var $input = $('#' + inputMap[api]);
+                    var $statusDiv = $('#status-' + api);
+
+                    if (response.success) {
+                        $input.val('').prop('readonly', false).css({'opacity': '1', 'cursor': ''});
+                        $statusDiv.html('<span style="color: gray;">⊘ Not validated yet</span>');
+                        $button.html('✓ Validate')
+                               .removeClass('bsp-v2-unlink-btn')
+                               .addClass('bsp-v2-validate-btn')
+                               .prop('disabled', false)
+                               .css({'opacity': '1', 'background': '', 'box-shadow': ''});
+                        BSP_V2_Admin.showNotice('✓ ' + apiDisplayName + ' API unlinked', 'success');
+                    } else {
+                        var errorMessage = response.data && response.data.message ? response.data.message : 'Unknown error';
+                        $button.prop('disabled', false).html('🔴 Unlink API').css('opacity', '1');
+                        BSP_V2_Admin.showNotice('✗ Failed to unlink: ' + errorMessage, 'error');
+                    }
+                },
+                error: function() {
+                    $button.prop('disabled', false).html('🔴 Unlink API').css('opacity', '1');
+                    BSP_V2_Admin.showNotice('✗ Network error while unlinking API', 'error');
                 }
             });
         },
