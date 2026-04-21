@@ -907,7 +907,7 @@ function bsp_v2_validate_openai_api($api_key = null, $model = null) {
         'model' => $model,
         'instructions' => 'Reply with OK only.',
         'input' => 'Say OK',
-        'max_output_tokens' => 5,
+        'max_output_tokens' => 16,
         'store' => false,
     ];
     
