@@ -1,0 +1,263 @@
+/**
+ * SeedBetArt Ai Bot - Widgets Styles
+ */
+
+:root {
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --accent-color: #f093fb;
+    --success-color: #4caf50;
+    --warning-color: #ff9800;
+    --danger-color: #f44336;
+    --light-gray: #f5f7fa;
+    --border-color: #e0e6ed;
+    --text-dark: #2c3e50;
+    --text-light: #7f8c8d;
+}
+
+/* Value Bets Widget */
+.bsp-v2-value-bets-widget {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.bsp-v2-value-bets-widget .widgettitle {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    padding: 12px 15px;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.bsp-v2-widget-list,
+.bsp-v2-ltd-widget-list,
+.bsp-v2-under25-widget-list {
+    list-style: none;
+    padding: 12px;
+    margin: 0;
+}
+
+.bsp-v2-widget-item,
+.bsp-v2-ltd-item,
+.bsp-v2-under25-item {
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.bsp-v2-widget-item:last-child,
+.bsp-v2-ltd-item:last-child,
+.bsp-v2-under25-item:last-child {
+    border-bottom: none;
+}
+
+.bsp-v2-widget-item strong,
+.bsp-v2-ltd-item strong,
+.bsp-v2-under25-item strong {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.bsp-v2-widget-item:hover,
+.bsp-v2-ltd-item:hover,
+.bsp-v2-under25-item:hover {
+    background: var(--light-gray);
+    border-radius: 4px;
+}
+
+/* Widget Cards Display */
+.bsp-v2-widget-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    padding: 12px;
+}
+
+.bsp-v2-widget-card {
+    background: white;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    padding: 10px;
+    text-align: center;
+    transition: all 0.3s;
+    font-size: 0.85rem;
+}
+
+.bsp-v2-widget-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.bsp-v2-confidence-high {
+    border-left: 4px solid var(--success-color);
+}
+
+.bsp-v2-confidence-medium {
+    border-left: 4px solid var(--warning-color);
+}
+
+.bsp-v2-confidence-low {
+    border-left: 4px solid var(--danger-color);
+}
+
+.bsp-v2-card-title {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+    line-height: 1.3;
+}
+
+.bsp-v2-card-odds {
+    font-size: 1.2rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 8px 0;
+}
+
+.bsp-v2-card-ev {
+    color: var(--success-color);
+    font-weight: 600;
+    font-size: 0.8rem;
+    margin: 6px 0;
+}
+
+.bsp-v2-card-confidence {
+    margin-top: 8px;
+}
+
+.bsp-v2-confidence-bar {
+    background: var(--light-gray);
+    border-radius: 3px;
+    height: 6px;
+    overflow: hidden;
+    margin-bottom: 4px;
+}
+
+.bsp-v2-confidence-fill {
+    background: linear-gradient(to right, var(--success-color), var(--accent-color));
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+/* Compact Widget Display */
+.bsp-v2-widget-compact-list {
+    list-style: none;
+    padding: 8px 12px;
+    margin: 0;
+}
+
+.bsp-v2-widget-compact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.85rem;
+}
+
+.bsp-v2-widget-compact:last-child {
+    border-bottom: none;
+}
+
+.bsp-v2-match {
+    flex: 1;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+.bsp-v2-odds {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+/* LTD Widget */
+.bsp-v2-ltd-widget .widgettitle {
+    background: linear-gradient(135deg, #00bcd4 0%, #0097a7 100%);
+    color: white;
+}
+
+.bsp-v2-ltd-item strong {
+    color: #00bcd4;
+}
+
+/* Under 2.5 Widget */
+.bsp-v2-under25-widget .widgettitle {
+    background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+    color: white;
+}
+
+.bsp-v2-under25-item strong {
+    color: #4caf50;
+}
+
+/* Widget Responsive Design */
+@media (max-width: 768px) {
+    .bsp-v2-widget-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+    
+    .bsp-v2-widget-item,
+    .bsp-v2-ltd-item,
+    .bsp-v2-under25-item {
+        font-size: 0.85rem;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .bsp-v2-widget-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .bsp-v2-widget-item,
+    .bsp-v2-ltd-item,
+    .bsp-v2-under25-item {
+        font-size: 0.8rem;
+        padding: 6px;
+    }
+    
+    .bsp-v2-widget-card {
+        padding: 8px;
+    }
+    
+    .bsp-v2-card-title {
+        font-size: 0.75rem;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .bsp-v2-value-bets-widget,
+    .bsp-v2-widget-card {
+        background: #313244;
+        color: #cdd6f4;
+    }
+    
+    .bsp-v2-widget-item:hover,
+    .bsp-v2-ltd-item:hover,
+    .bsp-v2-under25-item:hover {
+        background: #45475a;
+    }
+    
+    .bsp-v2-confidence-bar {
+        background: #45475a;
+    }
+    
+    .bsp-v2-widget-item,
+    .bsp-v2-ltd-item,
+    .bsp-v2-under25-item {
+        border-bottom-color: #45475a;
+    }
+}

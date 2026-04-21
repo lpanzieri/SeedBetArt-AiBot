@@ -1,0 +1,115 @@
+/**
+ * SeedBetArt Ai Bot - Admin Dashboard Styles
+ */
+
+.bsp-v2-admin-wrapper {
+    max-width: 1200px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.bsp-v2-dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.bsp-v2-stat-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.bsp-v2-stat-card h3 {
+    margin: 0 0 10px 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+
+.bsp-v2-stat-card .number {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.bsp-v2-settings-group {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.bsp-v2-settings-group h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.bsp-v2-form-group {
+    margin-bottom: 15px;
+}
+
+.bsp-v2-form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #333;
+}
+
+.bsp-v2-form-group input[type="text"],
+.bsp-v2-form-group input[type="password"],
+.bsp-v2-form-group select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.bsp-v2-form-group input:focus,
+.bsp-v2-form-group select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.bsp-v2-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.bsp-v2-button:hover {
+    background: #764ba2;
+}
+
+.bsp-v2-notice {
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border-left: 4px solid #667eea;
+    background: #f0f3ff;
+    border-radius: 4px;
+}
+
+.bsp-v2-notice.error {
+    border-left-color: #dc3545;
+    background: #fff5f5;
+}
+
+.bsp-v2-notice.success {
+    border-left-color: #28a745;
+    background: #f0fff4;
+}
