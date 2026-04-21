@@ -86,7 +86,7 @@
             if (!apiKeyValue) {
                 console.log('[BSP V2 Admin] No API key value, showing error');
                 $button.closest('.bsp-v2-form-group').find('.bsp-v2-validation-status').html(
-                    '<span style="color: #f44336; font-weight: 600;">✗ Please enter an API key first</span>'
+                    '<span class="bsp-v2-validation-error">✗ Please enter an API key first</span>'
                 );
                 return;
             }
@@ -133,7 +133,7 @@
                         // Lock input, disable+green the Validate button, append Unlink button
                         var $input = $('#' + inputId);
                         $input.prop('readonly', true).css({'opacity': '0.7', 'cursor': 'not-allowed'});
-                        statusDiv.html('<span style="color: #4caf50; font-weight: 600;">✓ ' + apiDisplayName + '-API is validated</span>');
+                        statusDiv.html('<span class="bsp-v2-validation-ok">✓ ' + apiDisplayName + '-API is validated</span>');
                         $button.html('✓ Validated')
                                .addClass('validated')
                                .prop('disabled', true)
@@ -144,7 +144,7 @@
                         console.log('[BSP V2 Admin] Validation failed:', response.data);
                         // Failure - turn red and KEEP IT RED
                         var errorMessage = response.data && response.data.message ? response.data.message : 'Unknown error';
-                        statusDiv.html('<span style="color: #f44336; font-weight: 600;">✗ Validation Failed</span><br><span style="color: #d32f2f; font-size: 0.9em; margin-top: 5px; display: block;">Error: ' + errorMessage + '</span>');
+                        statusDiv.html('<span class="bsp-v2-validation-error">✗ Validation Failed</span><br><span class="bsp-v2-validation-error-detail">Error: ' + errorMessage + '</span>');
                         $button.css({
                             'background': 'linear-gradient(135deg, #f44336 0%, #d32f2f 100%)',
                             'box-shadow': '0 4px 12px rgba(244, 67, 54, 0.4)'
@@ -183,7 +183,7 @@
                     console.log('[BSP V2 Admin] Error message:', errorMsg);
                     
                     // Failure - turn red and KEEP IT RED
-                    statusDiv.html('<span style="color: #f44336; font-weight: 600;">✗ Validation Error</span><br><span style="color: #d32f2f; font-size: 0.9em; margin-top: 5px; display: block;">Error: ' + errorMsg + '</span>');
+                    statusDiv.html('<span class="bsp-v2-validation-error">✗ Validation Error</span><br><span class="bsp-v2-validation-error-detail">Error: ' + errorMsg + '</span>');
                     $button.css({
                         'background': 'linear-gradient(135deg, #f44336 0%, #d32f2f 100%)',
                         'box-shadow': '0 4px 12px rgba(244, 67, 54, 0.4)'
@@ -223,7 +223,7 @@
 
                     if (response.success) {
                         $input.val('').prop('readonly', false).css({'opacity': '1', 'cursor': ''});
-                        $statusDiv.html('<span style="color: gray;">⊘ Not validated yet</span>');
+                        $statusDiv.html('<span class="bsp-v2-validation-pending">⊘ Not validated yet</span>');
                         var $validateBtn = $button.siblings('.bsp-v2-validate-btn');
                         $validateBtn.html('✓ Validate')
                                     .removeClass('validated')

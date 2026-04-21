@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Admin main orchestrator with enhanced dashboard
  */
@@ -197,24 +197,24 @@ class BSP_V2_Admin {
     
     public static function render_api_usage() {
         ?>
-        <div class="bsp-v2-settings-section" style="margin-top: 30px;">
+        <div class="bsp-v2-settings-section">
             <h2>📡 API Usage & Limits</h2>
             
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <div class="bsp-v2-api-usage-grid">
                 <?php
                 // OpenAI Usage
                 $openai_stats = bsp_v2_get_openai_usage_stats();
                 if ($openai_stats['limit'] > 0):
                     $bar_width = min(100, $openai_stats['percentage']);
-                    $bar_color = $bar_width > 80 ? '#f44336' : ($bar_width > 50 ? '#ff9800' : '#4caf50');
+                    $bar_class = $bar_width > 80 ? 'danger' : ($bar_width > 50 ? 'warning' : '');
                 ?>
-                <div style="padding: 15px; border: 1px solid #ddd; border-radius: 4px;">
-                    <h4 style="margin-top: 0;">🤖 OpenAI API</h4>
-                    <p style="color: #666; font-size: 0.9rem;">Tokens used this month</p>
-                    <div style="background: #f5f5f5; height: 8px; border-radius: 4px; overflow: hidden; margin: 10px 0;">
-                        <div style="background: <?php echo $bar_color; ?>; height: 100%; width: <?php echo $bar_width; ?>%;"></div>
+                <div class="bsp-v2-api-usage-card">
+                    <h4>🤖 OpenAI API</h4>
+                    <p class="bsp-v2-usage-label">Tokens used this month</p>
+                    <div class="bsp-v2-usage-bar-track">
+                        <div class="bsp-v2-usage-bar-fill <?php echo $bar_class; ?>" style="width: <?php echo $bar_width; ?>%"></div>
                     </div>
-                    <p style="margin: 5px 0; font-size: 0.9rem;">
+                    <p class="bsp-v2-usage-text">
                         <strong><?php echo number_format($openai_stats['used']); ?></strong> / 
                         <?php echo number_format($openai_stats['limit']); ?> tokens
                         (<?php echo $openai_stats['percentage']; ?>%)
@@ -227,15 +227,15 @@ class BSP_V2_Admin {
                 $odds_stats = bsp_v2_get_api_usage_stats('odds_api');
                 if ($odds_stats['limit'] > 0):
                     $bar_width = min(100, $odds_stats['percentage']);
-                    $bar_color = $bar_width > 80 ? '#f44336' : ($bar_width > 50 ? '#ff9800' : '#4caf50');
+                    $bar_class = $bar_width > 80 ? 'danger' : ($bar_width > 50 ? 'warning' : '');
                 ?>
-                <div style="padding: 15px; border: 1px solid #ddd; border-radius: 4px;">
-                    <h4 style="margin-top: 0;">📊 Odds-API</h4>
-                    <p style="color: #666; font-size: 0.9rem;">Calls used today</p>
-                    <div style="background: #f5f5f5; height: 8px; border-radius: 4px; overflow: hidden; margin: 10px 0;">
-                        <div style="background: <?php echo $bar_color; ?>; height: 100%; width: <?php echo $bar_width; ?>%;"></div>
+                <div class="bsp-v2-api-usage-card">
+                    <h4>📊 Odds-API</h4>
+                    <p class="bsp-v2-usage-label">Calls used today</p>
+                    <div class="bsp-v2-usage-bar-track">
+                        <div class="bsp-v2-usage-bar-fill <?php echo $bar_class; ?>" style="width: <?php echo $bar_width; ?>%"></div>
                     </div>
-                    <p style="margin: 5px 0; font-size: 0.9rem;">
+                    <p class="bsp-v2-usage-text">
                         <strong><?php echo $odds_stats['used']; ?></strong> / 
                         <?php echo $odds_stats['limit']; ?> calls
                         (<?php echo $odds_stats['percentage']; ?>%)
@@ -248,15 +248,15 @@ class BSP_V2_Admin {
                 $football_stats = bsp_v2_get_api_usage_stats('football_api');
                 if ($football_stats['limit'] > 0):
                     $bar_width = min(100, $football_stats['percentage']);
-                    $bar_color = $bar_width > 80 ? '#f44336' : ($bar_width > 50 ? '#ff9800' : '#4caf50');
+                    $bar_class = $bar_width > 80 ? 'danger' : ($bar_width > 50 ? 'warning' : '');
                 ?>
-                <div style="padding: 15px; border: 1px solid #ddd; border-radius: 4px;">
-                    <h4 style="margin-top: 0;">⚽ Football-API</h4>
-                    <p style="color: #666; font-size: 0.9rem;">Calls used today</p>
-                    <div style="background: #f5f5f5; height: 8px; border-radius: 4px; overflow: hidden; margin: 10px 0;">
-                        <div style="background: <?php echo $bar_color; ?>; height: 100%; width: <?php echo $bar_width; ?>%;"></div>
+                <div class="bsp-v2-api-usage-card">
+                    <h4>⚽ Football-API</h4>
+                    <p class="bsp-v2-usage-label">Calls used today</p>
+                    <div class="bsp-v2-usage-bar-track">
+                        <div class="bsp-v2-usage-bar-fill <?php echo $bar_class; ?>" style="width: <?php echo $bar_width; ?>%"></div>
                     </div>
-                    <p style="margin: 5px 0; font-size: 0.9rem;">
+                    <p class="bsp-v2-usage-text">
                         <strong><?php echo $football_stats['used']; ?></strong> / 
                         <?php echo $football_stats['limit']; ?> calls
                         (<?php echo $football_stats['percentage']; ?>%)
@@ -265,7 +265,7 @@ class BSP_V2_Admin {
                 <?php endif; ?>
             </div>
             
-            <p style="margin-top: 15px; padding: 10px; background: #e3f2fd; border-left: 4px solid #2196F3; font-size: 0.9rem;">
+            <p class="bsp-v2-tip-box">
                 💡 <strong>Tip:</strong> Configure API usage limits in <a href="<?php echo admin_url('admin.php?page=bsp-v2-settings'); ?>">Settings</a> 
                 to manage costs and prevent unexpected overages.
             </p>
@@ -400,14 +400,17 @@ class BSP_V2_Admin {
     public static function render_activity() {
         ?>
         <div class="bsp-v2-admin-wrapper">
-            <h1>📋 Activity Log</h1>
+            <div class="bsp-v2-header">
+                <h1>📋 Activity Log</h1>
+                <p class="bsp-v2-subtitle">Recent plugin events and debug output</p>
+            </div>
             <div class="bsp-v2-activity-log">
                 <p>Debug logs from: <code><?php echo bsp_v2_get_log_file(); ?></code></p>
                 <?php
                 $log_file = bsp_v2_get_log_file();
                 if (file_exists($log_file)) {
                     $lines = array_slice(file($log_file), -50);
-                    echo '<pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; max-height: 400px; overflow-y: auto;">';
+                    echo '<pre class="bsp-v2-log-pre">';
                     echo esc_html(implode('', $lines));
                     echo '</pre>';
                 } else {
@@ -423,7 +426,10 @@ class BSP_V2_Admin {
         $validation_status = bsp_v2_get_api_validation_status();
         ?>
         <div class="bsp-v2-admin-wrapper">
-            <h1>⚙️ SeedBetArt Ai Bot Settings</h1>
+            <div class="bsp-v2-header">
+                <h1>⚙️ Settings</h1>
+                <p class="bsp-v2-subtitle">Configure API keys, usage limits, and plugin behaviour</p>
+            </div>
             
             <form method="post" action="options.php" class="bsp-v2-settings-form">
                 <?php settings_fields('bsp_v2_settings'); ?>
@@ -433,8 +439,8 @@ class BSP_V2_Admin {
                     <p class="description">Enter your API keys from the respective service providers and validate them.</p>
                     
                     <div class="bsp-v2-form-group">
-                        <div style="display: flex; gap: 10px; align-items: flex-start;">
-                            <div style="flex: 1;">
+                        <div class="bsp-v2-api-form-row">
+                            <div class="bsp-v2-api-form-row-input">
                                 <label for="bsp_v2_api_key_odds">Odds-API Key</label>
                                 <input type="password" id="bsp_v2_api_key_odds" name="bsp_v2_api_key_odds" 
                                        value="<?php echo esc_attr(bsp_v2_option('api_key_odds')); ?>" 
@@ -442,7 +448,7 @@ class BSP_V2_Admin {
                                        <?php if ($validation_status['odds']) echo 'readonly style="cursor:not-allowed;opacity:0.7;"'; ?>>
                                 <p class="description">Get it from <a href="https://odds-api.io/" target="_blank">odds-api.io</a></p>
                             </div>
-                            <div class="bsp-v2-api-actions" style="display: flex; gap: 8px; margin-top: 25px;">
+                            <div class="bsp-v2-api-actions">
                                 <button type="button" class="bsp-v2-validate-btn <?php echo $validation_status['odds'] ? 'validated' : ''; ?>" data-api="odds"
                                         <?php if ($validation_status['odds']) echo 'disabled'; ?>>
                                     ✓ <?php echo $validation_status['odds'] ? 'Validated' : 'Validate'; ?>
@@ -454,18 +460,18 @@ class BSP_V2_Admin {
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <div class="bsp-v2-validation-status" id="status-odds" style="margin-top: 10px;">
+                        <div class="bsp-v2-validation-status" id="status-odds">
                             <?php if ($validation_status['odds']): ?>
-                                <span style="color: #4caf50; font-weight: 600;">✓ Odds-API is validated</span>
+                                <span class="bsp-v2-validation-ok">✓ Odds-API is validated</span>
                             <?php else: ?>
-                                <span style="color: gray;">⊘ Not validated yet</span>
+                                <span class="bsp-v2-validation-pending">⊘ Not validated yet</span>
                             <?php endif; ?>
                         </div>
                     </div>
                     
                     <div class="bsp-v2-form-group">
-                        <div style="display: flex; gap: 10px; align-items: flex-start;">
-                            <div style="flex: 1;">
+                        <div class="bsp-v2-api-form-row">
+                            <div class="bsp-v2-api-form-row-input">
                                 <label for="bsp_v2_api_key_football">Football-API Key</label>
                                 <input type="password" id="bsp_v2_api_key_football" name="bsp_v2_api_key_football" 
                                        value="<?php echo esc_attr(bsp_v2_option('api_key_football')); ?>" 
@@ -473,7 +479,7 @@ class BSP_V2_Admin {
                                        <?php if ($validation_status['football']) echo 'readonly style="cursor:not-allowed;opacity:0.7;"'; ?>>
                                 <p class="description">Get it from <a href="https://api-football.com/" target="_blank">api-football.com</a></p>
                             </div>
-                            <div class="bsp-v2-api-actions" style="display: flex; gap: 8px; margin-top: 25px;">
+                            <div class="bsp-v2-api-actions">
                                 <button type="button" class="bsp-v2-validate-btn <?php echo $validation_status['football'] ? 'validated' : ''; ?>" data-api="football"
                                         <?php if ($validation_status['football']) echo 'disabled'; ?>>
                                     ✓ <?php echo $validation_status['football'] ? 'Validated' : 'Validate'; ?>
@@ -485,18 +491,18 @@ class BSP_V2_Admin {
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <div class="bsp-v2-validation-status" id="status-football" style="margin-top: 10px;">
+                        <div class="bsp-v2-validation-status" id="status-football">
                             <?php if ($validation_status['football']): ?>
-                                <span style="color: #4caf50; font-weight: 600;">✓ Football-API is validated</span>
+                                <span class="bsp-v2-validation-ok">✓ Football-API is validated</span>
                             <?php else: ?>
-                                <span style="color: gray;">⊘ Not validated yet</span>
+                                <span class="bsp-v2-validation-pending">⊘ Not validated yet</span>
                             <?php endif; ?>
                         </div>
                     </div>
                     
                     <div class="bsp-v2-form-group">
-                        <div style="display: flex; gap: 10px; align-items: flex-start;">
-                            <div style="flex: 1;">
+                        <div class="bsp-v2-api-form-row">
+                            <div class="bsp-v2-api-form-row-input">
                                 <label for="bsp_v2_api_key_openai">OpenAI API Key</label>
                                 <input type="password" id="bsp_v2_api_key_openai" name="bsp_v2_api_key_openai" 
                                        value="<?php echo esc_attr(bsp_v2_option('api_key_openai')); ?>" 
@@ -504,7 +510,7 @@ class BSP_V2_Admin {
                                        <?php if ($validation_status['openai']) echo 'readonly style="cursor:not-allowed;opacity:0.7;"'; ?>>
                                 <p class="description">Required for AI analysis features. Get it from <a href="https://platform.openai.com/" target="_blank">OpenAI</a></p>
                             </div>
-                            <div class="bsp-v2-api-actions" style="display: flex; gap: 8px; margin-top: 25px;">
+                            <div class="bsp-v2-api-actions">
                                 <button type="button" class="bsp-v2-validate-btn <?php echo $validation_status['openai'] ? 'validated' : ''; ?>" data-api="openai"
                                         <?php if ($validation_status['openai']) echo 'disabled'; ?>>
                                     ✓ <?php echo $validation_status['openai'] ? 'Validated' : 'Validate'; ?>
@@ -516,11 +522,11 @@ class BSP_V2_Admin {
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <div class="bsp-v2-validation-status" id="status-openai" style="margin-top: 10px;">
+                        <div class="bsp-v2-validation-status" id="status-openai">
                             <?php if ($validation_status['openai']): ?>
-                                <span style="color: #4caf50; font-weight: 600;">✓ OpenAI API is validated</span>
+                                <span class="bsp-v2-validation-ok">✓ OpenAI API is validated</span>
                             <?php else: ?>
-                                <span style="color: gray;">⊘ Not validated yet</span>
+                                <span class="bsp-v2-validation-pending">⊘ Not validated yet</span>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -575,6 +581,10 @@ class BSP_V2_Admin {
                         <p class="description">Maximum API calls per day to Football-API. Standard plans include 100 calls/day. Leave empty for unlimited.</p>
                     </div>
                 </div>
+                
+                <div class="bsp-v2-settings-section">
+                    <h2>⚙️ General Settings</h2>
+                    <p class="description">Configure general plugin behaviour.</p>
                     
                     <div class="bsp-v2-form-group">
                         <label>
@@ -597,25 +607,23 @@ class BSP_V2_Admin {
                     <h2>🔧 Debug Tools</h2>
                     <p class="description">Test API connectivity and view detailed diagnostics.</p>
                     
-                    <div style="margin-top: 20px;">
-                        <button type="button" id="bsp-v2-debug-test-all" class="bsp-v2-button" style="background: #2196F3; color: white; margin-right: 10px;">
+                    <div class="bsp-v2-debug-tools-row">
+                        <button type="button" id="bsp-v2-debug-test-all" class="bsp-v2-button bsp-v2-button-info">
                             🧪 Test All APIs
                         </button>
-                        <button type="button" id="bsp-v2-debug-test-odds" class="bsp-v2-button" style="background: #FF9800; color: white; margin-right: 10px;">
+                        <button type="button" id="bsp-v2-debug-test-odds" class="bsp-v2-button bsp-v2-button-warning-plain">
                             📊 Test Odds-API
                         </button>
-                        <button type="button" id="bsp-v2-debug-test-football" class="bsp-v2-button" style="background: #4CAF50; color: white; margin-right: 10px;">
+                        <button type="button" id="bsp-v2-debug-test-football" class="bsp-v2-button bsp-v2-button-success-plain">
                             ⚽ Test Football-API
                         </button>
-                        <button type="button" id="bsp-v2-debug-test-openai" class="bsp-v2-button" style="background: #9C27B0; color: white;">
+                        <button type="button" id="bsp-v2-debug-test-openai" class="bsp-v2-button bsp-v2-button-purple">
                             🤖 Test OpenAI
                         </button>
                     </div>
                     
-                    <div id="bsp-v2-debug-results" style="margin-top: 20px; display: none;">
-                        <div style="background: #f5f5f5; padding: 15px; border-radius: 5px; border-left: 4px solid #2196F3;">
-                            <pre id="bsp-v2-debug-output" style="margin: 0; max-height: 400px; overflow-y: auto; font-size: 0.85em; white-space: pre-wrap; word-wrap: break-word;"></pre>
-                        </div>
+                    <div id="bsp-v2-debug-results" class="bsp-v2-debug-output-box">
+                        <pre id="bsp-v2-debug-output" class="bsp-v2-debug-pre"></pre>
                     </div>
                 </div>
                 
@@ -631,7 +639,7 @@ class BSP_V2_Admin {
                     var $results = $('#bsp-v2-debug-results');
                     
                     $output.text('Testing ' + testType + '...');
-                    $results.show();
+                    $results.addClass('visible');
                     
                     $.ajax({
                         type: 'POST',
@@ -702,24 +710,16 @@ class BSP_V2_Admin {
                 </div>
             <?php endif; ?>
             
-            <div class="bsp-v2-settings-form" style="padding: 0;">
+            <div class="bsp-v2-settings-form">
                 <div class="bsp-v2-settings-section">
                     <h2>Available Themes</h2>
                     <p class="description">Choose a theme to customize the look and feel of your dashboard and frontend widgets. Changes apply immediately.</p>
                     
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 25px;">
+                    <div class="bsp-v2-themes-grid">
                         <?php foreach ($themes as $slug => $name): ?>
-                            <div class="bsp-v2-theme-card" data-theme="<?php echo esc_attr($slug); ?>" style="
-                                border: 3px solid <?php echo $current_theme === $slug ? '#667eea' : '#e0e6ed'; ?>;
-                                border-radius: 12px;
-                                padding: 25px;
-                                text-align: center;
-                                cursor: pointer;
-                                transition: all 0.3s ease;
-                                background: <?php echo $current_theme === $slug ? '#f0f3ff' : '#fff'; ?>;
-                            ">
-                                <h3 style="margin: 0 0 15px 0; color: #2c3e50;"><?php echo esc_html($name); ?></h3>
-                                <p style="margin: 0 0 20px 0; color: #7f8c8d; font-size: 0.9em;">
+                            <div class="bsp-v2-theme-card <?php echo $current_theme === $slug ? 'active' : ''; ?>" data-theme="<?php echo esc_attr($slug); ?>">
+                                <h3><?php echo esc_html($name); ?></h3>
+                                <p class="bsp-v2-theme-description">
                                     <?php 
                                     $descriptions = [
                                         'basic' => 'Blue-purple gradient with clean, professional styling',
@@ -729,7 +729,7 @@ class BSP_V2_Admin {
                                     ?>
                                 </p>
                                 <?php if ($current_theme === $slug): ?>
-                                    <div style="color: #4caf50; font-weight: 600; margin-bottom: 15px;">✓ Active Theme</div>
+                                    <span class="bsp-v2-theme-active-label">✓ Active Theme</span>
                                 <?php else: ?>
                                     <button type="button" class="bsp-v2-theme-select-btn bsp-v2-button bsp-v2-button-primary" style="width: 100%;">
                                         Apply Theme
@@ -741,17 +741,6 @@ class BSP_V2_Admin {
                 </div>
             </div>
         </div>
-        
-        <style>
-            .bsp-v2-theme-card {
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            }
-            
-            .bsp-v2-theme-card:hover {
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-                transform: translateY(-2px);
-            }
-        </style>
         <?php
     }
     
@@ -879,10 +868,12 @@ class BSP_V2_Admin {
     public static function render_database() {
         ?>
         <div class="bsp-v2-admin-wrapper">
-            <h1>🗄️ Database Management</h1>
-            <p class="bsp-v2-subtitle">Manage plugin data and clean up the database</p>
+            <div class="bsp-v2-header">
+                <h1>🗄️ Database Management</h1>
+                <p class="bsp-v2-subtitle">Manage plugin data and clean up the database</p>
+            </div>
             
-            <div class="bsp-v2-settings-section" style="margin-top: 20px;">
+            <div class="bsp-v2-settings-section">
                 <h2>📊 Database Status</h2>
                 <?php
                 global $wpdb;
@@ -893,25 +884,17 @@ class BSP_V2_Admin {
                     $insights_table
                 )) > 0;
                 
-                $status_color = $table_exists ? '#4caf50' : '#f44336';
+                $status_class = $table_exists ? 'ok' : 'error';
                 $status_text = $table_exists ? '✓ OK - All tables present' : '✗ KO - Missing tables';
                 $status_label = $table_exists ? 'OK' : 'KO';
                 ?>
-                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
-                    <div style="
-                        background-color: <?php echo $status_color; ?>;
-                        color: white;
-                        padding: 8px 16px;
-                        border-radius: 4px;
-                        font-weight: bold;
-                        min-width: 60px;
-                        text-align: center;
-                    ">
+                <div class="bsp-v2-db-status-row">
+                    <div class="bsp-v2-db-status-badge <?php echo $status_class; ?>">
                         <?php echo $status_label; ?>
                     </div>
-                    <div>
+                    <div class="bsp-v2-db-status-text">
                         <strong><?php echo $status_text; ?></strong>
-                        <p style="margin: 5px 0 0 0; color: #666; font-size: 0.9rem;">
+                        <p>
                             <?php
                             if ($table_exists) {
                                 echo 'Database tables are properly configured and ready to use.';
@@ -924,86 +907,28 @@ class BSP_V2_Admin {
                 </div>
                 
                 <?php if (!$table_exists): ?>
-                    <form method="post" style="margin-bottom: 20px;">
+                    <form method="post" class="bsp-v2-form-actions" style="padding: 0; background: none; border: none; margin-bottom: 20px;">
                         <?php wp_nonce_field('bsp_v2_database_nonce'); ?>
-                        <button type="submit" name="bsp_v2_recreate_tables" class="bsp-v2-button" 
-                                style="background-color: #2196F3; color: white;"
+                        <button type="submit" name="bsp_v2_recreate_tables" class="bsp-v2-button bsp-v2-button-db-primary"
                                 onclick="return confirm('Recreate database tables? This will not delete existing data.');">
                             🔧 Recreate Tables
                         </button>
                     </form>
                 <?php endif; ?>
             </div>
-                <h2>⚠️ Danger Zone - Database Cleanup</h2>
-                <p style="color: #d32f2f; font-weight: bold;">These actions are permanent and cannot be undone. Please be careful!</p>
-                
-                <table class="widefat" style="margin-top: 20px;">
-                    <tr>
-                        <td style="padding: 15px; border: 1px solid #ddd;">
-                            <div style="margin-bottom: 10px;">
-                                <h3 style="margin: 0 0 8px 0;">🎫 Clean Team Badges</h3>
-                                <p style="margin: 0; color: #666; font-size: 0.9rem;">Remove all stored team badge data from the database. Badges will be re-fetched on the next analysis run.</p>
-                            </div>
-                            <form method="post" style="margin: 0;">
-                                <?php wp_nonce_field('bsp_v2_database_nonce'); ?>
-                                <button type="submit" name="bsp_v2_clean_badges" class="bsp-v2-button bsp-v2-button-secondary" 
-                                        onclick="return confirm('Clean all team badges? They will be re-fetched on the next analysis run.');">
-                                    🗑️ Clean Badges (<?php echo count(BSP_V2_Teams::get_all_badges()); ?> badges)
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 15px; border: 1px solid #ddd;">
-                            <div style="margin-bottom: 10px;">
-                                <h3 style="margin: 0 0 8px 0;">📊 Clean Historical Data</h3>
-                                <p style="margin: 0; color: #666; font-size: 0.9rem;">Remove all historical betting insights and analysis records older than 30 days.</p>
-                            </div>
-                            <form method="post" style="margin: 0;">
-                                <?php wp_nonce_field('bsp_v2_database_nonce'); ?>
-                                <button type="submit" name="bsp_v2_clean_history" class="bsp-v2-button bsp-v2-button-secondary" 
-                                        onclick="return confirm('Clean historical data older than 30 days? This action cannot be undone.');">
-                                    🗑️ Clean Historical Data
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 15px; border: 1px solid #ddd; background-color: #fff3e0;">
-                            <div style="margin-bottom: 10px;">
-                                <h3 style="margin: 0 0 8px 0; color: #ff6f00;">🔄 Drop & Recreate Tables</h3>
-                                <p style="margin: 0; color: #666; font-size: 0.9rem;">Drops all plugin tables and recreates them fresh. Useful for fixing corrupted tables or reinitializing the database structure.</p>
-                            </div>
-                            <form method="post" style="margin: 0;">
-                                <?php wp_nonce_field('bsp_v2_database_nonce'); ?>
-                                <button type="submit" name="bsp_v2_recreate_tables" class="bsp-v2-button" 
-                                        onclick="return confirm('Drop and recreate all database tables? All plugin data will be deleted and fresh tables created.');"
-                                        style="background-color: #ff6f00; color: white;">
-                                    🔄 Drop & Recreate
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 15px; border: 1px solid #ddd; background-color: #ffebee;">
-                            <div style="margin-bottom: 10px;">
-                                <h3 style="margin: 0 0 8px 0; color: #d32f2f;">🔴 Complete Database Reset</h3>
-                                <p style="margin: 0; color: #d32f2f; font-size: 0.9rem; font-weight: bold;">Completely erase all plugin tables and data. This will reset the plugin to a fresh state.</p>
-                            </div>
-                            <form method="post" style="margin: 0;">
-                                <?php wp_nonce_field('bsp_v2_database_nonce'); ?>
-                                <button type="submit" name="bsp_v2_reset_all" class="bsp-v2-button bsp-v2-button-danger" 
-                                        onclick="return confirm('⚠️ THIS WILL DELETE ALL PLUGIN DATA! Are you absolutely sure? Type DELETE to confirm') && (prompt('Type DELETE to confirm:') === 'DELETE');"
-                                        style="background-color: #d32f2f; color: white;">
-                                    🔴 COMPLETE RESET
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
+
+            <div class="bsp-v2-settings-section bsp-v2-danger-zone">
+                <h2>&#9888;&#65039; Danger Zone</h2>
+                <p class="bsp-v2-validation-error">These actions are permanent and cannot be undone.</p>
+                <table class="bsp-v2-danger-table">
+                    <tr class="bsp-v2-danger-row"><td><h3>Clean Team Badges</h3><p>Remove all stored team badge data.</p><form method="post"><?php wp_nonce_field('bsp_v2_database_nonce'); ?><button type="submit" name="bsp_v2_clean_badges" class="bsp-v2-button bsp-v2-button-secondary" onclick="return confirm('Clean all team badges?');">Clean Badges (<?php echo count(BSP_V2_Teams::get_all_badges()); ?> badges)</button></form></td></tr>
+                    <tr class="bsp-v2-danger-row"><td><h3>Clean Historical Data</h3><p>Remove historical betting insights older than 30 days.</p><form method="post"><?php wp_nonce_field('bsp_v2_database_nonce'); ?><button type="submit" name="bsp_v2_clean_history" class="bsp-v2-button bsp-v2-button-secondary" onclick="return confirm('Clean data older than 30 days?');">Clean Historical Data</button></form></td></tr>
+                    <tr class="bsp-v2-danger-row warn"><td><h3>Drop &amp; Recreate Tables</h3><p>Drops all plugin tables and recreates them fresh.</p><form method="post"><?php wp_nonce_field('bsp_v2_database_nonce'); ?><button type="submit" name="bsp_v2_recreate_tables" class="bsp-v2-button bsp-v2-button-amber" onclick="return confirm('Drop and recreate tables?');">Drop &amp; Recreate</button></form></td></tr>
+                    <tr class="bsp-v2-danger-row critical"><td><h3>Complete Database Reset</h3><p>Completely erase all plugin tables and data.</p><form method="post"><?php wp_nonce_field('bsp_v2_database_nonce'); ?><button type="submit" name="bsp_v2_reset_all" class="bsp-v2-button bsp-v2-button-danger" onclick="return confirm('DELETE ALL PLUGIN DATA?') && (prompt('Type DELETE to confirm:') === 'DELETE');">COMPLETE RESET</button></form></td></tr>
                 </table>
             </div>
             
-            <div class="bsp-v2-settings-section" style="margin-top: 30px;">
+            <div class="bsp-v2-settings-section">
                 <h2>📈 Database Statistics</h2>
                 <?php
                 global $wpdb;
@@ -1025,23 +950,27 @@ class BSP_V2_Admin {
                 $badge_count = count($badges);
                 $transient_count = BSP_V2_Cache::count_cached_entries();
                 ?>
-                <table class="widefat">
-                    <tr>
-                        <th>Item</th>
-                        <th>Count</th>
-                    </tr>
-                    <tr>
-                        <td>Stored Insights</td>
-                        <td><strong><?php echo $insights_count; ?><?php echo !$table_exists ? ' (table missing)' : ''; ?></strong></td>
-                    </tr>
-                    <tr>
-                        <td>Team Badges</td>
-                        <td><strong><?php echo $badge_count; ?></strong></td>
-                    </tr>
-                    <tr>
-                        <td>Transients</td>
-                        <td><strong><?php echo $transient_count; ?></strong></td>
-                    </tr>
+                <table class="bsp-v2-db-stats-table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Stored Insights</td>
+                            <td><?php echo $insights_count; ?><?php echo !$table_exists ? ' (table missing)' : ''; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Team Badges</td>
+                            <td><?php echo $badge_count; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Transients</td>
+                            <td><?php echo $transient_count; ?></td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -1063,11 +992,11 @@ class BSP_V2_Admin {
             try {
                 BSP_V2_Cache::install_tables();
                 add_action('admin_notices', function() {
-                    echo '<div class="notice notice-success is-dismissible"><p>✓ Database tables have been successfully recreated.</p></div>';
+                    echo '<div class="notice notice-success is-dismissible"><p>Ô£ô Database tables have been successfully recreated.</p></div>';
                 });
             } catch (Throwable $e) {
                 add_action('admin_notices', function() use ($e) {
-                    echo '<div class="notice notice-error is-dismissible"><p>✗ Error recreating tables: ' . esc_html($e->getMessage()) . '</p></div>';
+                    echo '<div class="notice notice-error is-dismissible"><p>Ô£ù Error recreating tables: ' . esc_html($e->getMessage()) . '</p></div>';
                 });
             }
         }
@@ -1076,7 +1005,7 @@ class BSP_V2_Admin {
         if (isset($_POST['bsp_v2_clean_badges'])) {
             BSP_V2_Teams::clear_all_badges();
             add_action('admin_notices', function() {
-                echo '<div class="notice notice-success is-dismissible"><p>✓ All team badges have been cleaned from the database.</p></div>';
+                echo '<div class="notice notice-success is-dismissible"><p>Ô£ô All team badges have been cleaned from the database.</p></div>';
             });
         }
         
@@ -1101,11 +1030,11 @@ class BSP_V2_Admin {
                 ));
                 
                 add_action('admin_notices', function() use ($deleted) {
-                    echo '<div class="notice notice-success is-dismissible"><p>✓ Deleted ' . intval($deleted) . ' historical records older than 30 days.</p></div>';
+                    echo '<div class="notice notice-success is-dismissible"><p>Ô£ô Deleted ' . intval($deleted) . ' historical records older than 30 days.</p></div>';
                 });
             } else {
                 add_action('admin_notices', function() {
-                    echo '<div class="notice notice-warning is-dismissible"><p>⚠ Insights table does not exist. No data to clean.</p></div>';
+                    echo '<div class="notice notice-warning is-dismissible"><p>ÔÜá Insights table does not exist. No data to clean.</p></div>';
                 });
             }
         }
@@ -1129,11 +1058,11 @@ class BSP_V2_Admin {
                 BSP_V2_Cache::install_tables();
                 
                 add_action('admin_notices', function() use ($deleted_option_count, $deleted_transient_count) {
-                    echo '<div class="notice notice-success is-dismissible"><p>✓ Complete database reset successful. All plugin data has been removed, ' . intval($deleted_option_count) . ' options were deleted, ' . intval($deleted_transient_count) . ' cached entries were cleared, and tables were recreated fresh.</p></div>';
+                    echo '<div class="notice notice-success is-dismissible"><p>Ô£ô Complete database reset successful. All plugin data has been removed, ' . intval($deleted_option_count) . ' options were deleted, ' . intval($deleted_transient_count) . ' cached entries were cleared, and tables were recreated fresh.</p></div>';
                 });
             } catch (Throwable $e) {
                 add_action('admin_notices', function() use ($e) {
-                    echo '<div class="notice notice-error is-dismissible"><p>✗ Error during reset: ' . esc_html($e->getMessage()) . '</p></div>';
+                    echo '<div class="notice notice-error is-dismissible"><p>Ô£ù Error during reset: ' . esc_html($e->getMessage()) . '</p></div>';
                 });
             }
         }
