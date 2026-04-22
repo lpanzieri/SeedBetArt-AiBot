@@ -253,9 +253,10 @@ class BSP_V2_Widget_LTD extends WP_Widget {
                 echo '</li>';
             }
             echo '</ul>';
-            
-            echo wp_kses_post($args['after_widget']);
-            
+        }
+
+        echo wp_kses_post($args['after_widget']);
+
         } catch (Throwable $e) {
             bsp_v2_log_error('LTD Widget Error: ' . $e->getMessage());
             echo '<p class="bsp-v2-widget-error">Widget error occurred</p>';

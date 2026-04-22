@@ -145,7 +145,7 @@
                         // Failure - turn red and KEEP IT RED
                         var errorMessage = response.data && response.data.message ? response.data.message : 'Unknown error';
                         statusDiv.html('<span class="bsp-v2-validation-error">✗ Validation Failed</span><br><span class="bsp-v2-validation-error-detail">Error: ' + errorMessage + '</span>');
-                        `$button.addClass('bsp-v2-validate-failed').html('✗ Failed').prop('disabled', false);
+                        $button.addClass('bsp-v2-validate-failed').html('✗ Failed').prop('disabled', false);
                         BSP_V2_Admin.showNotice('✗ Validation failed: ' + errorMessage, 'error');
                     }
                 },
@@ -181,7 +181,7 @@
                     
                     // Failure - turn red and KEEP IT RED
                     statusDiv.html('<span class="bsp-v2-validation-error">✗ Validation Error</span><br><span class="bsp-v2-validation-error-detail">Error: ' + errorMsg + '</span>');
-                    `$button.addClass('bsp-v2-validate-failed').html('✗ Error').prop('disabled', false);
+                    $button.addClass('bsp-v2-validate-failed').html('✗ Error').prop('disabled', false);
                     BSP_V2_Admin.showNotice('✗ ' + errorMsg, 'error');
                 }
             });
