@@ -1,0 +1,11 @@
+{
+    "name": "lpanzieri/seedbetart-aibot",
+    "description": "SeedBetArt Ai Bot WordPress Plugin",
+    "type": "wordpress-plugin",
+    "require-dev": {
+        "phpunit/phpunit": "^11"
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}

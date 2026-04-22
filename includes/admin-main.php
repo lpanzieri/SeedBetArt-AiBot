@@ -445,7 +445,7 @@ class BSP_V2_Admin {
                                 <input type="password" id="bsp_v2_api_key_odds" name="bsp_v2_api_key_odds" 
                                        value="<?php echo esc_attr(bsp_v2_option('api_key_odds')); ?>" 
                                        placeholder="sk_live_..." class="bsp-v2-input"
-                                       <?php if ($validation_status['odds']) echo 'readonly style="cursor:not-allowed;opacity:0.7;"'; ?>>
+                                       <?php if ($validation_status['odds']) echo 'readonly class="bsp-v2-input-locked"'; ?>>
                                 <p class="description">Get it from <a href="https://odds-api.io/" target="_blank">odds-api.io</a></p>
                             </div>
                             <div class="bsp-v2-api-actions">
@@ -476,7 +476,7 @@ class BSP_V2_Admin {
                                 <input type="password" id="bsp_v2_api_key_football" name="bsp_v2_api_key_football" 
                                        value="<?php echo esc_attr(bsp_v2_option('api_key_football')); ?>" 
                                        placeholder="your-api-key..." class="bsp-v2-input"
-                                       <?php if ($validation_status['football']) echo 'readonly style="cursor:not-allowed;opacity:0.7;"'; ?>>
+                                       <?php if ($validation_status['football']) echo 'readonly class="bsp-v2-input-locked"'; ?>>
                                 <p class="description">Get it from <a href="https://api-football.com/" target="_blank">api-football.com</a></p>
                             </div>
                             <div class="bsp-v2-api-actions">
@@ -507,7 +507,7 @@ class BSP_V2_Admin {
                                 <input type="password" id="bsp_v2_api_key_openai" name="bsp_v2_api_key_openai" 
                                        value="<?php echo esc_attr(bsp_v2_option('api_key_openai')); ?>" 
                                        placeholder="sk-..." class="bsp-v2-input"
-                                       <?php if ($validation_status['openai']) echo 'readonly style="cursor:not-allowed;opacity:0.7;"'; ?>>
+                                       <?php if ($validation_status['openai']) echo 'readonly class="bsp-v2-input-locked"'; ?>>
                                 <p class="description">Required for AI analysis features. Get it from <a href="https://platform.openai.com/" target="_blank">OpenAI</a></p>
                             </div>
                             <div class="bsp-v2-api-actions">
@@ -705,7 +705,7 @@ class BSP_V2_Admin {
             </div>
 
             <?php if ($switched_theme !== '' && $switched_theme === $current_theme && isset($themes[$current_theme])): ?>
-                <div class="notice notice-success is-dismissible" style="margin: 0 0 20px 0;">
+                <div class="notice notice-success is-dismissible bsp-v2-notice-spaced">
                     <p>✓ Theme changed to <?php echo esc_html($themes[$current_theme]); ?>.</p>
                 </div>
             <?php endif; ?>
@@ -731,7 +731,7 @@ class BSP_V2_Admin {
                                 <?php if ($current_theme === $slug): ?>
                                     <span class="bsp-v2-theme-active-label">✓ Active Theme</span>
                                 <?php else: ?>
-                                    <button type="button" class="bsp-v2-theme-select-btn bsp-v2-button bsp-v2-button-primary" style="width: 100%;">
+                                    <button type="button" class="bsp-v2-theme-select-btn bsp-v2-button bsp-v2-button-primary bsp-v2-button-full">
                                         Apply Theme
                                     </button>
                                 <?php endif; ?>
@@ -780,12 +780,12 @@ class BSP_V2_Admin {
                 <h2>Synchronization</h2>
                 <p class="description">Sync team badges for all recent matches from your API data.</p>
                 
-                <form method="post" style="margin-top: 20px;">
+                <form method="post" class="bsp-v2-form-mt">
                     <?php wp_nonce_field('bsp_v2_team_badges_nonce'); ?>
                     <button type="submit" name="bsp_v2_sync_badges" class="bsp-v2-button bsp-v2-button-primary">
                         🔄 Sync Team Badges Now
                     </button>
-                    <p style="color: #999; font-size: 0.9rem; margin-top: 10px;">
+                    <p class="bsp-v2-hint-text">
                         This will fetch badges for all teams in recent betting recommendations and store them locally.
                     </p>
                 </form>
@@ -795,13 +795,13 @@ class BSP_V2_Admin {
                 <h2>Cache Management</h2>
                 <p class="description">Clear the team badge cache to force a refresh from the API.</p>
                 
-                <form method="post" style="margin-top: 20px;">
+                <form method="post" class="bsp-v2-form-mt">
                     <?php wp_nonce_field('bsp_v2_team_badges_nonce'); ?>
                     <button type="submit" name="bsp_v2_clear_badge_cache" class="bsp-v2-button bsp-v2-button-secondary" 
                             onclick="return confirm('Are you sure? This will clear all cached badges.');">
                         🗑️ Clear Badge Cache
                     </button>
-                    <p style="color: #999; font-size: 0.9rem; margin-top: 10px;">
+                    <p class="bsp-v2-hint-text">
                         Cached badges are stored for 7 days to reduce API calls. Clear the cache to refresh immediately.
                     </p>
                 </form>
@@ -847,7 +847,7 @@ class BSP_V2_Admin {
                         </tbody>
                     </table>
                 <?php else: ?>
-                    <p style="color: #999;">No cached team badges yet. Run a sync to populate the cache.</p>
+                    <p class="bsp-v2-text-muted">No cached team badges yet. Run a sync to populate the cache.</p>
                 <?php endif; ?>
             </div>
             
@@ -907,7 +907,7 @@ class BSP_V2_Admin {
                 </div>
                 
                 <?php if (!$table_exists): ?>
-                    <form method="post" class="bsp-v2-form-actions" style="padding: 0; background: none; border: none; margin-bottom: 20px;">
+                    <form method="post" class="bsp-v2-form-actions bsp-v2-form-bare">
                         <?php wp_nonce_field('bsp_v2_database_nonce'); ?>
                         <button type="submit" name="bsp_v2_recreate_tables" class="bsp-v2-button bsp-v2-button-db-primary"
                                 onclick="return confirm('Recreate database tables? This will not delete existing data.');">

@@ -8,9 +8,9 @@ if (!defined('ABSPATH')) exit;
 class BSP_V2_Logic {
     
     private $client;
-    
-    public function __construct() {
-        $this->client = new BSP_V2_Client();
+
+    public function __construct( ?BSP_V2_Client $client = null ) {
+        $this->client = $client ?? new BSP_V2_Client();
     }
     
     /**

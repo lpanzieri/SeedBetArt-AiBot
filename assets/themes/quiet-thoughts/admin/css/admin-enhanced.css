@@ -997,3 +997,64 @@
     .bsp-v2-themes-grid       { grid-template-columns: 1fr; }
     .bsp-v2-db-status-row     { flex-wrap: wrap; }
 }
+
+/* ── Utility helpers (inline-style replacements) ─────────────────────────── */
+/* Full-width button */
+.bsp-v2-button-full { width: 100%; }
+
+/* Locked/validated input */
+.bsp-v2-input-locked { opacity: 0.7; cursor: not-allowed; }
+
+/* Validate-failed button state */
+.bsp-v2-validate-failed {
+    background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%) !important;
+    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.4) !important;
+}
+
+/* Form section with top margin */
+.bsp-v2-form-mt { margin-top: 20px; }
+
+/* Muted hint text under form elements */
+.bsp-v2-hint-text {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+/* Muted paragraph (e.g. empty-state messages) */
+.bsp-v2-text-muted { color: var(--text-light); }
+
+/* Success notice with bottom spacing */
+.bsp-v2-notice-spaced { margin: 0 0 20px 0; }
+
+/* ── Utility helpers (inline-style replacements) ─────────────────────────── */
+/* Full-width button */
+.bsp-v2-button-full { width: 100%; }
+
+/* Locked/validated input */
+.bsp-v2-input-locked { opacity: 0.7; cursor: not-allowed; }
+
+/* Validate-failed button state */
+.bsp-v2-validate-failed {
+    background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%) !important;
+    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.4) !important;
+}
+
+/* Form section with top margin */
+.bsp-v2-form-mt { margin-top: 20px; }
+
+/* Muted hint text under form elements */
+.bsp-v2-hint-text {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+/* Muted paragraph (e.g. empty-state messages) */
+.bsp-v2-text-muted { color: var(--text-light); }
+
+/* Success notice with bottom spacing */
+.bsp-v2-notice-spaced { margin: 0 0 20px 0; }
+
+/* Bare form (no background/padding/border, used inside settings-section) */
+.bsp-v2-form-bare { padding: 0; background: none; border: none; margin-bottom: 20px; }
